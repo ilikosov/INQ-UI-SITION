@@ -1,4 +1,4 @@
-export { css, styled, createTheme, globalStyles, darkTheme, keyframes, config } from './core/stitches.config';
+export { darkTheme, globalStyles, vars } from './core/theme.css';
 export { colors, spacing, radii, fontSizes } from './core/tokens';
 
 export { Box } from './system/Box';
@@ -7,7 +7,15 @@ export { Stack } from './system/Stack';
 export type { StackProps } from './system/Stack';
 
 export { Button } from './components/Button';
-export { Table } from './components/Table';
+export type { ButtonProps } from './components/Button';
+export {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from './components/Table';
 export type { TableProps } from './components/Table';
 export { Switch } from './components/Switch';
 export type { SwitchProps } from './components/Switch';

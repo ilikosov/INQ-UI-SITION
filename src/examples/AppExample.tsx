@@ -2,11 +2,11 @@ import * as React from 'react';
 import { Box } from '../system/Box';
 import { Stack } from '../system/Stack';
 import { Button } from '../components/Button';
-import { Table } from '../components/Table';
 import { Switch } from '../components/Switch';
 import { Sidebar } from '../components/Sidebar';
 import { Topbar } from '../components/Topbar';
-import { darkTheme, globalStyles } from '../core/stitches.config';
+import { darkTheme, globalStyles } from '../core/theme.css';
+import { Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from '../components/Table';
 
 globalStyles();
 
@@ -17,11 +17,11 @@ export function AppExample() {
   const [enabled, setEnabled] = React.useState(true);
 
   return (
-    <Box className={dark ? darkTheme : ''} css={{ minHeight: '100dvh', backgroundColor: '$background', color: '$text' }}>
-      <Box css={{ display: 'grid', gridTemplateColumns: '1fr', '@md': { gridTemplateColumns: '16rem 1fr' } }}>
+    <Box className={dark ? darkTheme : ''} style={{ minHeight: '100dvh' }}>
+      <Box style={{ display: 'grid', gridTemplateColumns: '1fr' }}>
         <Sidebar open={open} onClose={() => setOpen(false)}>
-          <Stack gap="4">
-            <Box css={{ fontSize: '$lg', fontWeight: 700 }}>inq-ui-sition</Box>
+          <Stack gap={4}>
+            <Box style={{ fontSize: '1.125rem', fontWeight: 700 }}>inq-ui-sition</Box>
             <Button variant="ghost" onClick={() => setDark((v) => !v)}>
               Toggle theme
             </Button>
@@ -38,8 +38,8 @@ export function AppExample() {
             right={<Switch checked={enabled} onCheckedChange={setEnabled} aria-label="Enable feature" />}
           />
 
-          <Stack gap="4" css={{ padding: '$4' }}>
-            <Stack gap="3" css={{ '@sm': { flexDirection: 'row' } }}>
+          <Stack gap={4} style={{ padding: '1rem' }}>
+            <Stack gap={3}>
               <Button size="sm">Small</Button>
               <Button size="md">Medium</Button>
               <Button size="lg" variant="ghost">
@@ -48,25 +48,25 @@ export function AppExample() {
             </Stack>
 
             <Table>
-              <thead>
+              <TableHead>
                 <tr>
-                  <th>Name</th>
-                  <th>Role</th>
-                  <th>Status</th>
+                  <TableHeaderCell>Name</TableHeaderCell>
+                  <TableHeaderCell>Role</TableHeaderCell>
+                  <TableHeaderCell>Status</TableHeaderCell>
                 </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td data-label="Name">Ari</td>
-                  <td data-label="Role">Admin</td>
-                  <td data-label="Status">Active</td>
-                </tr>
-                <tr>
-                  <td data-label="Name">Noa</td>
-                  <td data-label="Role">Editor</td>
-                  <td data-label="Status">Pending</td>
-                </tr>
-              </tbody>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell data-label="Name">Ari</TableCell>
+                  <TableCell data-label="Role">Admin</TableCell>
+                  <TableCell data-label="Status">Active</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell data-label="Name">Noa</TableCell>
+                  <TableCell data-label="Role">Editor</TableCell>
+                  <TableCell data-label="Status">Pending</TableCell>
+                </TableRow>
+              </TableBody>
             </Table>
           </Stack>
         </Box>
