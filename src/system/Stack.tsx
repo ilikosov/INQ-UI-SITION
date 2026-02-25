@@ -1,25 +1,16 @@
 import * as React from 'react';
-import { styled } from '../core/stitches.config';
+import { cx } from '../core/cx';
+import { gap, stack } from './Stack.css';
 
-const StyledStack = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  variants: {
-    gap: {
-      1: { gap: '$1' },
-      2: { gap: '$2' },
-      3: { gap: '$3' },
-      4: { gap: '$4' },
-      5: { gap: '$5' },
-      6: { gap: '$6' },
-    },
-  },
-  defaultVariants: {
-    gap: 3,
-  },
-});
+type Gap = keyof typeof gap;
+
+export interface StackProps extends React.HTMLAttributes<HTMLDivElement> {
+  gap?: Gap;
+}
 
 /** Vertical flex layout primitive with gap variants. */
-export const Stack = StyledStack;
+export const Stack = React.forwardRef<HTMLDivElement, StackProps>(({ className, gap: gapSize = 3, ...props }, ref) => (
+  <div ref={ref} className={cx(stack, gap[gapSize], className)} {...props} />
+));
 
-export type StackProps = React.ComponentProps<typeof Stack>;
+Stack.displayName = 'Stack';

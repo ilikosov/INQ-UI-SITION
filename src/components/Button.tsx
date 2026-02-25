@@ -1,71 +1,22 @@
 import * as React from 'react';
-import { styled } from '../core/stitches.config';
+import { cx } from '../core/cx';
+import { button, fullWidth, size, variant } from './Button.css';
 
-const StyledButton = styled('button', {
-  appearance: 'none',
-  border: '1px solid transparent',
-  borderRadius: '$md',
-  fontWeight: 600,
-  cursor: 'pointer',
-  transition: 'background-color 120ms ease, border-color 120ms ease, color 120ms ease',
-  '&:focus-visible': {
-    outline: '2px solid $focus',
-    outlineOffset: '2px',
-  },
-  '&:disabled': {
-    opacity: 0.6,
-    cursor: 'not-allowed',
-  },
-  variants: {
-    variant: {
-      primary: {
-        backgroundColor: '$primary',
-        color: 'white',
-        '&:hover:not(:disabled)': {
-          backgroundColor: '$primaryHover',
-        },
-      },
-      ghost: {
-        backgroundColor: 'transparent',
-        borderColor: '$border',
-        color: '$text',
-        '&:hover:not(:disabled)': {
-          backgroundColor: '$ghostHover',
-        },
-      },
-    },
-    size: {
-      sm: {
-        fontSize: '$sm',
-        px: '$3',
-        py: '$2',
-      },
-      md: {
-        fontSize: '$md',
-        px: '$4',
-        py: '$2',
-      },
-      lg: {
-        fontSize: '$lg',
-        px: '$5',
-        py: '$3',
-      },
-    },
-    fullWidth: {
-      true: {
-        width: '100%',
-      },
-    },
-  },
-  defaultVariants: {
-    variant: 'primary',
-    size: 'md',
-  },
-});
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: keyof typeof variant;
+  size?: keyof typeof size;
+  fullWidth?: boolean;
+}
 
 /** Responsive button with style and size variants. */
-export const Button = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof StyledButton>>(
-  (props, ref) => <StyledButton ref={ref} {...props} />,
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant: buttonVariant = 'primary', size: buttonSize = 'md', fullWidth: isFullWidth, ...props }, ref) => (
+    <button
+      ref={ref}
+      className={cx(button, variant[buttonVariant], size[buttonSize], isFullWidth && fullWidth, className)}
+      {...props}
+    />
+  ),
 );
 
 Button.displayName = 'Button';
